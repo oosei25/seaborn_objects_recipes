@@ -93,6 +93,7 @@ class Lowess(Stat):
                 xvals=xx,
                 frac=self.frac,
                 delta=self.delta,
+                it=self.it,
             )
             # Ensure the result is two-dimensional
             if result.ndim == 1:
@@ -135,8 +136,8 @@ class Lowess(Stat):
 
         if self.num_bootstrap:
             if not grouping_vars:
-                bootstrap_estimates = self._bootstrap_resampling(data)
+                bootstrap_estimates = self._bootstrap_resampling(df)
             else:
-                bootstrap_estimates = groupby.apply(data, self._bootstrap_resampling)
+                bootstrap_estimates = groupby.apply(df, self._bootstrap_resampling)
 
         return smoothed.join(bootstrap_estimates[["ymin", "ymax"]]) if self.num_bootstrap else smoothed

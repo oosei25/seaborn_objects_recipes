@@ -1,12 +1,27 @@
 [tool.poetry]
 name = "seaborn_objects_recipes"
-version = "0.1.5"
+version = "0.2.0.post1"
 description = "A collection of recipes that can be used together with the seaborn library to create custom plots."
 authors = ["Ofosu Osei <goofosuosei@gmail.com>"]
 license = "MIT"
-
+readme = "README.md"
+homepage = "https://github.com/oosei25/seaborn_objects_recipes"
+repository = "https://github.com/oosei25/seaborn_objects_recipes"
+keywords = ["seaborn", "seaborn.objects", "lowess", "statsmodels", "visualization"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Visualization",
+]
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.13"
+seaborn = ">=0.13"
+statsmodels = ">=0.14"
+pandas = ">=1.5"
+numpy = ">=1.22"
+matplotlib = ">=3.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
