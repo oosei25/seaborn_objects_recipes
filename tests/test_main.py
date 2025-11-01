@@ -6,7 +6,7 @@ import seaborn.objects as so
 import seaborn as sns
 import pandas as pd
 import numpy as np
-
+from seaborn._core.groupby import GroupBy
 
 @pytest.fixture
 def sample_data():
@@ -171,3 +171,35 @@ def test_polyfit_with_ci(cleanup_files):
     plt.savefig("polyfit_with_ci.png")
     # Assert that the file was created
     assert os.path.exists("polyfit_with_ci.png"), "The plot file lowess.png was not created."
+
+# Helper 
+def _eval_stat(stat, df, x, y, orient="x"):
+    """Run a seaborn.objects Stat on an (x, y) dataframe with no real grouping."""
+    df_xy = df.rename(columns={x: "x", y: "y"}).dropna(subset=["x", "y"])
+    fake_groupby = GroupBy(["__dummy__"])  # not present in df_xy -> no grouping
+    return stat(df_xy, fake_groupby, orient, {})
+
+# This covers “auto-enable bootstrapping when alpha != 0.95” logic.
+def test_lowess_auto_bootstrap_when_alpha_changed():
+    rng = np.random.default_rng(0)
+    x = np.linspace(0, 1, 80)
+    y = np.sin(6 * x) + 0.05 * rng.normal(size=x.size)
+    df = pd.DataFrame({"x": x, "y": y})
+
+    # alpha != 0.95 and num_bootstrap=None  -> should produce ymin/ymax
+    low = sor.Lowess(frac=0.3, gridsize=60, alpha=0.90)  # <-- no num_bootstrap
+    out = _eval_stat(low, df, "x", "y")
+
+    assert {"ymin", "ymax"} <= set(out.columns), "Expected CI columns when alpha != 0.95"
+
+# Helpful error when frac is too small for few unique x-values
+def test_lowess_frac_too_small_message():
+    # Only 3 distinct x values -> min_frac ≈ 2/3 in implementation
+    df = pd.DataFrame({"x": [1, 2, 3, 1, 2, 3], "y": [1, 2, 3, 1.1, 1.9, 3.05]})
+    low = sor.Lowess(frac=0.2, gridsize=10)  # clearly too small
+
+    with pytest.raises(ValueError) as err:
+        _eval_stat(low, df, "x", "y")
+
+    msg = str(err.value)
+    assert "distinct x" in msg and "frac=" in msg, "Did not get helpful frac-too-small message"
