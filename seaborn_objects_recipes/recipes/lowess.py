@@ -1,11 +1,12 @@
 from __future__ import annotations
-import warnings
+
+from dataclasses import dataclass
+from typing import Optional
+
 import numpy as np
 import pandas as pd
-from dataclasses import dataclass
-from seaborn._stats.base import Stat
 import statsmodels.api as sm
-from typing import Optional
+from seaborn._stats.base import Stat
 
 
 @dataclass
@@ -52,7 +53,9 @@ class Lowess(Stat):
             raise ValueError("frac must be a float between 0 and 1.")
         if not isinstance(self.gridsize, int) or self.gridsize <= 0:
             raise ValueError("gridsize must be a positive integer.")
-        if self.num_bootstrap is not None and (not isinstance(self.num_bootstrap, int) or self.num_bootstrap <= 0):
+        if self.num_bootstrap is not None and (
+            not isinstance(self.num_bootstrap, int) or self.num_bootstrap <= 0
+        ):
             raise ValueError("num_bootstrap must be a positive integer or None.")
         if not isinstance(self.alpha, float) or not (0 < self.alpha < 1):
             raise ValueError("alpha must be a float between 0 and 1.")
@@ -67,13 +70,12 @@ class Lowess(Stat):
         x = data["x"]
         xx = np.linspace(x.min(), x.max(), self.gridsize)
         result = sm.nonparametric.lowess(
-            
-            endog=data["y"], 
-            exog=x, 
-            frac=self.frac, 
+            endog=data["y"],
+            exog=x,
+            frac=self.frac,
             delta=self.delta,
             it=self.it,
-            xvals=xx
+            xvals=xx,
         )
         if result.ndim == 1:  # Handle single-dimensional return values
             yy = result
@@ -97,11 +99,17 @@ class Lowess(Stat):
             )
             # Ensure the result is two-dimensional
             if result.ndim == 1:
-                result = np.column_stack((xx, result))  # Reformat to two-dimensional if needed
+                result = np.column_stack(
+                    (xx, result)
+                )  # Reformat to two-dimensional if needed
             bootstrap_estimates[i, :] = result[:, 1]
 
-        lower_bound = np.percentile(bootstrap_estimates, (1 - self.alpha) / 2 * 100, axis=0)
-        upper_bound = np.percentile(bootstrap_estimates, (1 + self.alpha) / 2 * 100, axis=0)
+        lower_bound = np.percentile(
+            bootstrap_estimates, (1 - self.alpha) / 2 * 100, axis=0
+        )
+        upper_bound = np.percentile(
+            bootstrap_estimates, (1 + self.alpha) / 2 * 100, axis=0
+        )
 
         return pd.DataFrame({"ymin": lower_bound, "ymax": upper_bound})
 
@@ -122,7 +130,7 @@ class Lowess(Stat):
             raise ValueError(
                 f"`frac={self.frac:.3f}` is too small for only {n} distinct x‐values.\n"
                 f"LOWESS needs at least ~{k+1} points per window, so try `frac` ≥ {min_frac:.3f}."
-            )        
+            )
         smoothed = self._fit_predict(df)
 
         grouping_vars = [str(v) for v in data if v in groupby.order]
@@ -140,4 +148,8 @@ class Lowess(Stat):
             else:
                 bootstrap_estimates = groupby.apply(df, self._bootstrap_resampling)
 
-        return smoothed.join(bootstrap_estimates[["ymin", "ymax"]]) if self.num_bootstrap else smoothed
+        return (
+            smoothed.join(bootstrap_estimates[["ymin", "ymax"]])
+            if self.num_bootstrap
+            else smoothed
+        )
