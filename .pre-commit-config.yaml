@@ -1,0 +1,19 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.7.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^(seaborn_objects_recipes/recipes|tests)/.*\.py$
+        # exclude: ^seaborn_objects_recipes/recipes/_experimental/
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+        files: ^(seaborn_objects_recipes/recipes|tests)/.*\.py$
+  - repo: https://github.com/pycqa/isort
+    rev: 7.0.0
+    hooks:
+      - id: isort
+        args: [--profile, black]
+        files: ^(seaborn_objects_recipes/recipes|tests)/.*\.py$

@@ -1,12 +1,14 @@
 import os
-import pytest
-import seaborn_objects_recipes as sor
-import matplotlib.pyplot as plt
-import seaborn.objects as so
-import seaborn as sns
-import pandas as pd
+
 import numpy as np
+import pandas as pd
+import pytest
+import seaborn as sns
+import seaborn.objects as so
 from seaborn._core.groupby import GroupBy
+
+import seaborn_objects_recipes as sor
+
 
 @pytest.fixture
 def sample_data():
@@ -78,7 +80,7 @@ def test_line_label(sample_data, cleanup_files):
             legend=False,
         )
         .save("line_label.png")
-        #.show()
+        # .show()
     )
     # Assert that the file was created
     assert os.path.exists(
@@ -97,13 +99,20 @@ def test_lowess_with_ci_gen(cleanup_files):
     plot = (
         so.Plot(data, x="x", y="y")
         .add(so.Dot())
-        .add(so.Line(), lowess := sor.Lowess(frac=0.2, gridsize=100, num_bootstrap=200, alpha=0.95))
+        .add(
+            so.Line(),
+            lowess := sor.Lowess(frac=0.2, gridsize=100, num_bootstrap=200, alpha=0.95),
+        )
         .add(so.Band(), lowess)
-        .label(x="x-axis", y="y-axis", title="Lowess Plot with Confidence Intervals - Generated Data")
+        .label(
+            x="x-axis",
+            y="y-axis",
+            title="Lowess Plot with Confidence Intervals - Generated Data",
+        )
     )
 
     # Save the plot
-    plt.savefig("lowess_gen.png")
+    plot.save("lowess_gen.png")
 
     # Assert that the file was created
     assert os.path.exists("lowess_gen.png"), "The plot file lowess.png was not created."
@@ -117,17 +126,23 @@ def test_lowess_with_ci(cleanup_files):
     plot = (
         so.Plot(penguins, x="bill_length_mm", y="body_mass_g", color="species")
         .add(so.Dot())
-        .add(so.Line(), lowess := sor.Lowess(frac=0.2, gridsize=100, num_bootstrap=200, alpha=0.95))
+        .add(
+            so.Line(),
+            lowess := sor.Lowess(frac=0.2, gridsize=100, num_bootstrap=200, alpha=0.95),
+        )
         .add(so.Band(), lowess)
-        .label(x="Bill Length (mm)", y="Body Mass (g)", title="Lowess Plot with Confidence Intervals")
+        .label(
+            x="Bill Length (mm)",
+            y="Body Mass (g)",
+            title="Lowess Plot with Confidence Intervals",
+        )
     )
 
     # Save Plot
-    plt.savefig("lowess_b.png")
+    plot.save("lowess_b.png")
 
     # Assert that the file was created
     assert os.path.exists("lowess_b.png"), "The plot file lowess.png was not created."
-
 
 
 def test_lowess_with_no_ci(cleanup_files):
@@ -135,17 +150,21 @@ def test_lowess_with_no_ci(cleanup_files):
     penguins = sns.load_dataset("penguins")
 
     # Prepare data
-    data = penguins[penguins['species'] == 'Adelie']
+    data = penguins[penguins["species"] == "Adelie"]
 
-   # Create the plot
+    # Create the plot
     plot = (
         so.Plot(data, x="bill_length_mm", y="body_mass_g")
         .add(so.Dot())
         .add(so.Line(), sor.Lowess())
-        .label(x="Bill Length (mm)", y="Body Mass (g)", title="Lowess Plot no Confidence Intervals")
+        .label(
+            x="Bill Length (mm)",
+            y="Body Mass (g)",
+            title="Lowess Plot no Confidence Intervals",
+        )
     )
     # Save Plot
-    plt.savefig("lowess_nb.png")
+    plot.save("lowess_nb.png")
 
     # Assert that the file was created
     assert os.path.exists("lowess_nb.png"), "The plot file lowess.png was not created."
@@ -163,21 +182,32 @@ def test_polyfit_with_ci(cleanup_files):
     plot = (
         so.Plot(data, x="bill_length_mm", y="body_mass_g")
         .add(so.Dot())
-        .add(so.Line(), PolyFitWithCI := sor.PolyFitWithCI(order=2, gridsize=100, alpha=0.05))
+        .add(
+            so.Line(),
+            PolyFitWithCI := sor.PolyFitWithCI(order=2, gridsize=100, alpha=0.05),
+        )
         .add(so.Band(), PolyFitWithCI)
-        .label(x="Bill Length (mm)", y="Body Mass (g)", title="PolyFit Plot with Confidence Intervals")
+        .label(
+            x="Bill Length (mm)",
+            y="Body Mass (g)",
+            title="PolyFit Plot with Confidence Intervals",
+        )
     )
     # Save Plot
-    plt.savefig("polyfit_with_ci.png")
+    plot.save("polyfit_with_ci.png")
     # Assert that the file was created
-    assert os.path.exists("polyfit_with_ci.png"), "The plot file lowess.png was not created."
+    assert os.path.exists(
+        "polyfit_with_ci.png"
+    ), "The plot file lowess.png was not created."
 
-# Helper 
+
+# Helper
 def _eval_stat(stat, df, x, y, orient="x"):
     """Run a seaborn.objects Stat on an (x, y) dataframe with no real grouping."""
     df_xy = df.rename(columns={x: "x", y: "y"}).dropna(subset=["x", "y"])
     fake_groupby = GroupBy(["__dummy__"])  # not present in df_xy -> no grouping
     return stat(df_xy, fake_groupby, orient, {})
+
 
 # This covers “auto-enable bootstrapping when alpha != 0.95” logic.
 def test_lowess_auto_bootstrap_when_alpha_changed():
@@ -190,11 +220,14 @@ def test_lowess_auto_bootstrap_when_alpha_changed():
     low = sor.Lowess(frac=0.3, gridsize=60, alpha=0.90)  # <-- no num_bootstrap
     out = _eval_stat(low, df, "x", "y")
 
-    assert {"ymin", "ymax"} <= set(out.columns), "Expected CI columns when alpha != 0.95"
+    assert {"ymin", "ymax"} <= set(
+        out.columns
+    ), "Expected CI columns when alpha != 0.95"
+
 
 # Helpful error when frac is too small for few unique x-values
 def test_lowess_frac_too_small_message():
-    # Only 3 distinct x values -> min_frac ≈ 2/3 in implementation
+    # Only 3 distinct x values -> min_frac ≈ 2/3 in your implementation
     df = pd.DataFrame({"x": [1, 2, 3, 1, 2, 3], "y": [1, 2, 3, 1.1, 1.9, 3.05]})
     low = sor.Lowess(frac=0.2, gridsize=10)  # clearly too small
 
@@ -202,4 +235,6 @@ def test_lowess_frac_too_small_message():
         _eval_stat(low, df, "x", "y")
 
     msg = str(err.value)
-    assert "distinct x" in msg and "frac=" in msg, "Did not get helpful frac-too-small message"
+    assert (
+        "distinct x" in msg and "frac=" in msg
+    ), "Did not get helpful frac-too-small message"

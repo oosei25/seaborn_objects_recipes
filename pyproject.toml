@@ -16,6 +16,19 @@ classifiers = [
   "Intended Audience :: Science/Research",
   "Topic :: Scientific/Engineering :: Visualization",
 ]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = ["dist", "build", "docs", "img", ".venv"]
+
+[tool.black]
+extend-exclude = "^(dist|build|docs|img|.venv)/"
+
+[tool.isort]
+profile = "black"
+skip = ["dist", "build", "docs", "img", ".venv"]
+
 [tool.poetry.dependencies]
 python = ">=3.9,<3.13"
 seaborn = ">=0.13"

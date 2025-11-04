@@ -1,10 +1,11 @@
 import dataclasses
 import operator
-from typing import ClassVar, Any
+from typing import Any, ClassVar
 
 import pandas as pd
 import seaborn.objects as so
 from seaborn._core.groupby import GroupBy
+
 
 @dataclasses.dataclass
 class Rolling(so.Move):

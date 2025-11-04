@@ -1,13 +1,12 @@
-import dataclasses
-from typing import ClassVar, Any, Mapping
-import logging
-import matplotlib as mpl
 import collections
-import pandas as pd
+import dataclasses
+import logging
+from typing import Any, Mapping
+
+import matplotlib as mpl
 import numpy as np
 import scipy.optimize
 import seaborn.objects as so
-from seaborn._core.groupby import GroupBy
 from seaborn._marks.base import (
     Mappable,
     MappableColor,
@@ -16,6 +15,7 @@ from seaborn._marks.base import (
     resolve_color,
     resolve_properties,
 )
+
 
 @dataclasses.dataclass
 class LineLabel(so.Mark):
@@ -48,6 +48,7 @@ class LineLabel(so.Mark):
     _plot(split_gen, scales, orient)
         Adds text labels to the plot at computed positions.
     """
+
     text: MappableString = Mappable("")
     color: MappableColor = Mappable("k")
     alpha: MappableFloat = Mappable(1)
@@ -96,10 +97,15 @@ class LineLabel(so.Mark):
             )
             sol, objective_value = scipy.optimize.nnls(A, b)
             # Recover points
-            sol = np.cumsum(sol) + min_point + np.arange(num_points) * sorted_offsets.squeeze(1)
+            sol = (
+                np.cumsum(sol)
+                + min_point
+                + np.arange(num_points) * sorted_offsets.squeeze(1)
+            )
             sol = np.take_along_axis(sol[:, np.newaxis], original_indexes, axis=0)
             logging.info(
-                "Found line label positions with final objective value: %f", objective_value
+                "Found line label positions with final objective value: %f",
+                objective_value,
             )
 
             # Update original points
@@ -107,13 +113,15 @@ class LineLabel(so.Mark):
 
             # Transform back to data coordinates
             screen_to_data = ax.transData.inverted()
-            target_positions[ax] = screen_to_data.transform(points.view("f8")).view(point_dtype)
+            target_positions[ax] = screen_to_data.transform(points.view("f8")).view(
+                point_dtype
+            )
 
         return target_positions
 
     def _plot(self, split_gen, scales, orient):
-        data_by_axes: dict[mpl.axes.Axes, list[Mapping[str, Any]]] = collections.defaultdict(
-            list
+        data_by_axes: dict[mpl.axes.Axes, list[Mapping[str, Any]]] = (
+            collections.defaultdict(list)
         )  # pyright: ignore
 
         other = {"x": "y", "y": "x"}[orient]

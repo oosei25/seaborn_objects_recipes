@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-import matplotlib as mpl
 
+import matplotlib as mpl
 from seaborn._marks.base import (
     Mappable,
     MappableColor,
@@ -10,6 +10,7 @@ from seaborn._marks.base import (
     resolve_color,
     resolve_properties,
 )
+
 
 @dataclass
 class StraightLine(Mark):
