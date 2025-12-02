@@ -32,7 +32,7 @@ class Lowess(Stat):
     num_bootstrap : int, optional
         The number of bootstrap samples to use for confidence intervals.
     alpha : float
-        Confidence level for the intervals.
+        Confidence level for the intervals. Default 0.05
 
     Returns
     -------
@@ -45,7 +45,7 @@ class Lowess(Stat):
     delta: float = 0.0
     it: int = 0
     num_bootstrap: Optional[int] = None
-    alpha: float = 0.95
+    alpha: float = 0.05
 
     def __post_init__(self):
         # Type checking for the arguments
@@ -63,7 +63,7 @@ class Lowess(Stat):
             raise ValueError("iterations must be a non-negative integer.")
         if not isinstance(self.delta, float) or self.delta < 0:
             raise ValueError("delta must be a non-negative float.")
-        if self.num_bootstrap is None and self.alpha != 0.95:
+        if self.num_bootstrap is None and not self.alpha == 0.05:
             self.num_bootstrap = 200
 
     def _fit_predict(self, data):
@@ -104,11 +104,9 @@ class Lowess(Stat):
                 )  # Reformat to two-dimensional if needed
             bootstrap_estimates[i, :] = result[:, 1]
 
-        lower_bound = np.percentile(
-            bootstrap_estimates, (1 - self.alpha) / 2 * 100, axis=0
-        )
+        lower_bound = np.percentile(bootstrap_estimates, self.alpha / 2 * 100, axis=0)
         upper_bound = np.percentile(
-            bootstrap_estimates, (1 + self.alpha) / 2 * 100, axis=0
+            bootstrap_estimates, (1 - (self.alpha / 2)) * 100, axis=0
         )
 
         return pd.DataFrame({"ymin": lower_bound, "ymax": upper_bound})
