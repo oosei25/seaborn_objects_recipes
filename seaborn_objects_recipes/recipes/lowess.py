@@ -16,23 +16,27 @@ class Lowess(Stat):
     This statistical method allows fitting a smooth curve to your data
     using a local regression. It can be useful to visualize the trend of the data.
 
+    Note that while this is based on the statsmodels implementation of lowess,
+    the default value of `it` is set to 0. For a more outlier robust
+    model increase the value of `it`.
+
     Parameters
     ----------
-    frac : float
+    frac : float, 0.2
         The fraction of data used when estimating each y-value.
-    gridsize : int
+    gridsize : int, 100
         The number of points in the grid to which the LOWESS is applied.
         Higher values result in a smoother curve.
-    delta : float
+    delta : float, 0.0
         Distance within which to use linear-interpolation instead of weighted regression.
-    it : int
+    it : int, 0
         The number of iterations to perform. 0 = plain least-squares
         LOWESS; higher values re-weight outliers via a bisquare function at
         extra computational cost.
     num_bootstrap : int, optional
         The number of bootstrap samples to use for confidence intervals.
-    alpha : float
-        Confidence level for the intervals. Default 0.05
+    alpha : float, 0.05
+        Confidence level for the intervals.
 
     Returns
     -------
