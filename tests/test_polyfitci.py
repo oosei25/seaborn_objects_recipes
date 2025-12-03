@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 import pytest
 import statsmodels.api as sm
-from scipy import stats
 from seaborn._core.groupby import GroupBy
 
 from seaborn_objects_recipes.recipes.plotting import PolyFitWithCI
