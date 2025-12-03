@@ -16,22 +16,26 @@ class Lowess(Stat):
     This statistical method allows fitting a smooth curve to your data
     using a local regression. It can be useful to visualize the trend of the data.
 
+    Note that while this is based on the statsmodels implementation of lowess,
+    the default value of `it` is set to 0. For a more outlier robust
+    model increase the value of `it`.
+
     Parameters
     ----------
-    frac : float
+    frac : float, 0.2
         The fraction of data used when estimating each y-value.
-    gridsize : int
+    gridsize : int, 100
         The number of points in the grid to which the LOWESS is applied.
         Higher values result in a smoother curve.
-    delta : float
+    delta : float, 0.0
         Distance within which to use linear-interpolation instead of weighted regression.
-    it : int
+    it : int, 0
         The number of iterations to perform. 0 = plain least-squares
         LOWESS; higher values re-weight outliers via a bisquare function at
         extra computational cost.
     num_bootstrap : int, optional
         The number of bootstrap samples to use for confidence intervals.
-    alpha : float
+    alpha : float, 0.05
         Confidence level for the intervals.
 
     Returns
@@ -45,7 +49,7 @@ class Lowess(Stat):
     delta: float = 0.0
     it: int = 0
     num_bootstrap: Optional[int] = None
-    alpha: float = 0.95
+    alpha: float = 0.05
 
     def __post_init__(self):
         # Type checking for the arguments
@@ -63,7 +67,7 @@ class Lowess(Stat):
             raise ValueError("iterations must be a non-negative integer.")
         if not isinstance(self.delta, float) or self.delta < 0:
             raise ValueError("delta must be a non-negative float.")
-        if self.num_bootstrap is None and self.alpha != 0.95:
+        if self.num_bootstrap is None and not self.alpha == 0.05:
             self.num_bootstrap = 200
 
     def _fit_predict(self, data):
@@ -104,11 +108,9 @@ class Lowess(Stat):
                 )  # Reformat to two-dimensional if needed
             bootstrap_estimates[i, :] = result[:, 1]
 
-        lower_bound = np.percentile(
-            bootstrap_estimates, (1 - self.alpha) / 2 * 100, axis=0
-        )
+        lower_bound = np.percentile(bootstrap_estimates, self.alpha / 2 * 100, axis=0)
         upper_bound = np.percentile(
-            bootstrap_estimates, (1 + self.alpha) / 2 * 100, axis=0
+            bootstrap_estimates, (1 - (self.alpha / 2)) * 100, axis=0
         )
 
         return pd.DataFrame({"ymin": lower_bound, "ymax": upper_bound})

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from statistics import NormalDist
 
 import numpy as np
 import pandas as pd
@@ -48,13 +49,16 @@ class PolyFitWithCI(Stat):
         if x.size <= self.order:
             xx = yy = []
         else:
+            # Fit polynomial and create gridded values
+            # for plotting.
             p = np.polyfit(x, y, self.order)
             xx = np.linspace(x.min(), x.max(), self.gridsize)
             yy = np.polyval(p, xx)
 
             # Calculate confidence intervals
-            # Design matrix
-            X_design = np.vander(xx, self.order + 1)
+
+            # Design matrix for fitting
+            X_to_fit = np.vander(x, self.order + 1)
 
             # Calculate standard errors
             y_hat = np.polyval(p, x)
@@ -62,14 +66,18 @@ class PolyFitWithCI(Stat):
             dof = max(0, len(x) - (self.order + 1))
             residual_std_error = np.sqrt(np.sum(residuals**2) / dof)
 
-            # Covariance matrix of coefficients
-            C_matrix = np.linalg.inv(X_design.T @ X_design) * residual_std_error**2
+            # Covariance matrix
+            C_matrix = np.linalg.inv(X_to_fit.T @ X_to_fit) * residual_std_error**2
+
+            # Design matrix for prediction points
+            X_design = np.vander(xx, self.order + 1)
 
             # Calculate the standard error for the predicted values
             y_err = np.sqrt(np.sum((X_design @ C_matrix) * X_design, axis=1))
 
-            # Calculate the confidence intervals
-            ci = y_err * 1.96  # For approximately 95% CI
+            # Calculate the confidence intervals using NormalDist
+            z_score = NormalDist().inv_cdf(1 - self.alpha / 2)
+            ci = y_err * z_score
             ci_lower = yy - ci
             ci_upper = yy + ci
 
