@@ -70,7 +70,7 @@ class Lowess(Stat):
         if self.num_bootstrap is None and not self.alpha == 0.05:
             self.num_bootstrap = 200
 
-    def _fit_predict(self, data):
+    def _fit_predict(self, data: pd.DataFrame) -> pd.DataFrame:
         x = data["x"]
         xx = np.linspace(x.min(), x.max(), self.gridsize)
         result = sm.nonparametric.lowess(
@@ -155,3 +155,6 @@ class Lowess(Stat):
             if self.num_bootstrap
             else smoothed
         )
+
+
+__all__ = ["Lowess"]

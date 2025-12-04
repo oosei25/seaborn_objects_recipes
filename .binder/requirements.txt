@@ -1,0 +1,5 @@
+matplotlib
+pandas
+seaborn
+statsmodels
+seaborn_objects_recipes

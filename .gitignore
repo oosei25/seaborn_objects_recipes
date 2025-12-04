@@ -141,3 +141,14 @@ dmypy.json
 
 # pytest results
 results.json
+
+# --- Sphinx / sphinx-gallery build artefacts ---
+docs/_build/
+docs/source/api/generated/
+docs/source/auto_examples/
+docs/source/auto_examples/images/
+
+# Sphinx-gallery generated examples (keep only source examples/)
+docs/source/generated/
+docs/source/sg_execution_times.rst
+docs/source/sg_execution_times.rst

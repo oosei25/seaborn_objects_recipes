@@ -20,4 +20,3 @@ from .recipes.lowess import Lowess  # noqa: F401
 from .recipes.plotting import PolyFitWithCI # noqa: F401
 
 __all__ = ['Rolling', 'LineLabel', 'Lowess', 'PolyFitWithCI']
-
