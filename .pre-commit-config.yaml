@@ -11,9 +11,10 @@ repos:
     hooks:
       - id: black
         files: ^(seaborn_objects_recipes/recipes|tests)/.*\.py$
-  - repo: https://github.com/pycqa/isort
-    rev: 7.0.0
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
     hooks:
-      - id: isort
-        args: [--profile, black]
-        files: ^(seaborn_objects_recipes/recipes|tests)/.*\.py$
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-toml

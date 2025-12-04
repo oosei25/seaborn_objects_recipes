@@ -1,0 +1,12 @@
+sphinx>=7.3
+pydata-sphinx-theme>=0.15
+sphinx-gallery>=0.16
+myst-parser>=3.0
+linkify-it-py>=2.0
+numpydoc>=1.7
+sphinx-copybutton>=0.5
+matplotlib>=3.8
+pandas>=2.0
+seaborn>=0.13
+statsmodels>=0.14.1
+-e ..     # use local package while building docs
