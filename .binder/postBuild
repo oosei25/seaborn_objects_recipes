@@ -1,10 +1,11 @@
 #!/bin/bash
 set -e
 
-cd docs
-sphinx-build -M html source _build
-cd ..
+# cd docs
+# sphinx-build -M html source _build
+# cd ..
 
-# Mirror generated notebooks to project root for Binder
-rm -rf notebooks || true
-cp -r docs/_build/html/notebooks ./notebooks
+# # Mirror generated notebooks to project root for Binder
+# rm -rf notebooks || true
+# cp -r docs/_build/html/notebooks ./notebooks
+echo "postBuild: skipping Sphinx HTML build on Binder to avoid memory issues."
