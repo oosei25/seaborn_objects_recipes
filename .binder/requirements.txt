@@ -10,5 +10,5 @@ pandas
 numpy
 seaborn
 statsmodels
-numpydoc0
+numpydoc
 seaborn_objects_recipes

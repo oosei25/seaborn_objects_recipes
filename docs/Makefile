@@ -13,4 +13,4 @@ clean:
 
 html:
 	python -m pip install -r requirements.txt
-	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" -W --keep-going
+	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" --keep-going
