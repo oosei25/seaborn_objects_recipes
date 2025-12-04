@@ -71,6 +71,7 @@ sphinx_gallery_conf = {
         "branch": "main",
         "binderhub_url": "https://mybinder.org",
         "dependencies": "../../.binder/requirements.txt",
+        "notebooks_dir": "docs/_build/html/notebooks",
     },
 }
 
