@@ -1,5 +1,6 @@
 sphinx
 sphinx-gallery
+sphinx-copybutton
 myst-parser
 pydata-sphinx-theme
 scipy
@@ -9,4 +10,5 @@ pandas
 numpy
 seaborn
 statsmodels
+numpydoc0
 seaborn_objects_recipes
