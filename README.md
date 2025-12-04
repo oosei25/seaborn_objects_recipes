@@ -29,7 +29,7 @@ pip install seaborn_objects_recipes
     make -C docs html && open docs/_build/html/index.html
 ```
 
->> For the full gallery and API, see the docs: [API-Gallery Link](https://oosei25.github.io/seaborn_objects_recipes/)
+> For the full gallery and API, see the docs: [API-Gallery Link](https://oosei25.github.io/seaborn_objects_recipes/)
 
 ## Contact
 

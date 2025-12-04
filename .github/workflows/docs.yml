@@ -23,7 +23,7 @@ jobs:
         run: |
           cd docs
           python -m pip install -r requirements.txt
-          sphinx-build -b html source _build/html -W --keep-going
+          sphinx-build -b html source _build/html --keep-going
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

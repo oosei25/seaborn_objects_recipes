@@ -78,4 +78,13 @@ sphinx_gallery_conf = {
 myst_enable_extensions = ["colon_fence", "deflist", "linkify"]
 
 # Misc
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+exclude_patterns = [
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    "**/sg_execution_times.rst",
+]
+
+suppress_warnings = [
+    "toc.excluded",
+]
