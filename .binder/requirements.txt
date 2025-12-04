@@ -1,5 +1,12 @@
+sphinx
+sphinx-gallery
+myst-parser
+pydata-sphinx-theme
+scipy
+Pillow
 matplotlib
 pandas
+numpy
 seaborn
 statsmodels
 seaborn_objects_recipes
