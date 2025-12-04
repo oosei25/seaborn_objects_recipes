@@ -65,7 +65,7 @@ To ensure bootstrap bounds are generated when users adjust alpha without explici
 
 ```python
    # If user changed alpha but didn’t set num_bootstrap, assign a safe default
-   if self.num_bootstrap is None and self.alpha != 0.95:
+   if self.num_bootstrap is None and not self.alpha == 0.05:
       self.num_bootstrap = 200
 ```
 
