@@ -49,6 +49,8 @@ For questions or feedback regarding `seaborn_objects_recipes`, please contact [O
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+> Quick Checklist:
+
 • ✅ Distinct x-value count valid for LOWESS (frac ≥ 2/n)
 
 • ✅ CI columns present (ymin, ymax) when bootstrapping is on

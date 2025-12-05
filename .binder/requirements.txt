@@ -1,14 +1,7 @@
-sphinx
-sphinx-gallery
-sphinx-copybutton
-myst-parser
-pydata-sphinx-theme
 scipy
-Pillow
 matplotlib
 pandas
 numpy
 seaborn
 statsmodels
-numpydoc
 seaborn_objects_recipes
