@@ -23,7 +23,9 @@ This example shows how multiple recipes can be layered to clarify noisy time-ser
 This pattern is useful when you want:
 
 • Local smoothing (Rolling) to reduce short-term noise
+
 • Nonparametric smoothing (Lowess) to reveal global trends
+
 • Direct labeling (LineLabel) to avoid legends and improve readability in multi-series plots
 
 > Together, these transforms produce a clean, interpretable visualization that emphasizes both local variation and overall structure — ideal for exploratory time-series analysis, sensor measurements, economic indicators, or any repeated noisy signal.
