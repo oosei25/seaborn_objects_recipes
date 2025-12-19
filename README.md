@@ -22,11 +22,9 @@ This example shows how multiple recipes can be layered to clarify noisy time-ser
 
 This pattern is useful when you want:
 
-• Local smoothing (Rolling) to reduce short-term noise
-
-• Nonparametric smoothing (Lowess) to reveal global trends
-
-• Direct labeling (LineLabel) to avoid legends and improve readability in multi-series plots
+- Local smoothing (Rolling) to reduce short-term noise
+- Nonparametric smoothing (Lowess) to reveal global trends
+- Direct labeling (LineLabel) to avoid legends and improve readability in multi-series plots
 
 > Together, these transforms produce a clean, interpretable visualization that emphasizes both local variation and overall structure — ideal for exploratory time-series analysis, sensor measurements, economic indicators, or any repeated noisy signal.
 
@@ -86,11 +84,9 @@ For questions or feedback regarding `seaborn_objects_recipes`, please contact [O
 
 ## 🌟 Credits
 
-* Special thanks to [@nickeubank](https://github.com/nickeubank) for the support and mentorship on this project
-
-* Special thanks to [@JesseFarebro](https://github.com/JesseFarebro) for [Rolling, LineLabel](https://github.com/mwaskom/seaborn/discussions/3133)
-
-* Special thanks to [@tbpassin](https://github.com/tbpassin) and [@kcarnold](https://github.com/kcarnold) for [LOWESS Smoother](https://github.com/mwaskom/seaborn/issues/3320)
+- Special thanks to [@nickeubank](https://github.com/nickeubank) for the support and mentorship on this project
+- Special thanks to [@JesseFarebro](https://github.com/JesseFarebro) for [Rolling, LineLabel](https://github.com/mwaskom/seaborn/discussions/3133)
+- Special thanks to [@tbpassin](https://github.com/tbpassin) and [@kcarnold](https://github.com/kcarnold) for [LOWESS Smoother](https://github.com/mwaskom/seaborn/issues/3320)
 
 ## 🤝 Contributing
 
@@ -98,8 +94,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 > Quick Checklist:
 
-• ✅ Distinct x-value count valid for LOWESS (frac ≥ 2/n)
-
-• ✅ CI columns present (ymin, ymax) when bootstrapping is on
-
-• ✅ alpha respected and bootstraps defaulted if unset
+- ✅ Distinct x-value count valid for LOWESS (frac ≥ 2/n)
+- ✅ CI columns present (ymin, ymax) when bootstrapping is on
+- ✅ alpha respected and bootstraps defaulted if unset
