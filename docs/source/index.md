@@ -39,7 +39,9 @@ api/index
 `seaborn_objects_recipes` currently provides a small set of stats, moves, and marks
 that plug directly into the `seaborn.objects` API.
 
-### **LOWESS smoother – `seaborn_objects_recipes.recipes.lowess.Lowess`**
+### LOWESS smoother
+
+ `seaborn_objects_recipes.recipes.lowess.Lowess`
 
 A `Stat` that performs locally weighted regression using `statsmodels` and returns
 a tidy DataFrame with `x`, `y` (smoothed) and, optionally, `ymin` / `ymax` columns
@@ -55,7 +57,9 @@ when interval estimation is enabled.
   > The class also enforces a minimum feasible `frac` based on the number of distinct
   `x` values to avoid underdetermined fits.
 
-### **Polynomial fit with intervals – `seaborn_objects_recipes.recipes.plotting.PolyFitWithCI`**
+### Polynomial fit with intervals
+
+ `seaborn_objects_recipes.recipes.plotting.PolyFitWithCI`
 
 A `Stat` that fits a polynomial of a given `order` and evaluates it on a regular
 grid, returning `x`, `y`, `ymin`, and `ymax`.
@@ -67,7 +71,9 @@ grid, returning `x`, `y`, `ymin`, and `ymax`.
   > Designed to pair naturally with `so.Line()` and `so.Band()` for “fit + band”
   style visualizations.
 
-### **Rolling smoother – `seaborn_objects_recipes.recipes.rolling.Rolling`**
+### Rolling smoother
+
+`seaborn_objects_recipes.recipes.rolling.Rolling`
 
 A `Move` that applies a pandas rolling window operation along one axis of the plot.
 
@@ -78,7 +84,9 @@ A `Move` that applies a pandas rolling window operation along one axis of the pl
   > This is useful for smoothing trajectories or time series while keeping the
   original `seaborn.objects` structure (e.g. `Agg` + `Lines`) intact.
 
-### **Direct line labels – `seaborn_objects_recipes.recipes.line_label.LineLabel`**
+### Direct line labels
+
+`seaborn_objects_recipes.recipes.line_label.LineLabel`
 
 A `Mark` that places text directly on lines, so you can identify series without
 relying only on a legend.
@@ -90,7 +98,9 @@ relying only on a legend.
 
   > Intended for multi-line plots where direct labeling improves readability.
 
-### **Reference lines – `seaborn_objects_recipes.recipes.straight_line.StraightLine`**
+### Reference lines
+
+`seaborn_objects_recipes.recipes.straight_line.StraightLine`
 
 A `Mark` that draws simple horizontal or vertical reference lines using
 `Axes.axline`.
