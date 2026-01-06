@@ -126,7 +126,7 @@ class LineLabel(so.Mark):
 
         other = {"x": "y", "y": "x"}[orient]
         for keys, data, ax in split_gen():
-            records = data.query(f"`{orient}` == {orient}.max()").to_dict("records")
+            records = data.sort_values(orient).tail(1).to_dict("records")
             records = collections.ChainMap(*records, {"_keys": keys})
             data_by_axes[ax].append(records)
 
