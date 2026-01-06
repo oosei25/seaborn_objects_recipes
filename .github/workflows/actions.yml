@@ -21,6 +21,8 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     needs: lint
+    env:
+      MPLBACKEND: Agg
     strategy:
       matrix:
         python-version: [ "3.10.x", "3.11", "3.12" ]
