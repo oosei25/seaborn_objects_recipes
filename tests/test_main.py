@@ -1,9 +1,9 @@
 import os
 
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import pytest
-import seaborn as sns
 import seaborn.objects as so
 from seaborn._core.groupby import GroupBy
 
@@ -28,6 +28,12 @@ def sample_data():
     }
 
     return pd.DataFrame(data)
+
+
+@pytest.fixture(scope="session")
+def penguins_df():
+    p = Path(__file__).parent / "data" / "penguins.csv"
+    return pd.read_csv(p)
 
 
 @pytest.fixture
@@ -80,7 +86,6 @@ def test_line_label(sample_data, cleanup_files):
             legend=False,
         )
         .save("line_label.png")
-        # .show()
     )
     # Assert that the file was created
     assert os.path.exists(
@@ -88,7 +93,7 @@ def test_line_label(sample_data, cleanup_files):
     ), "The plot file line_label.png was not created."
 
 
-def test_lowess_with_ci_gen(cleanup_files):
+def test_lowess_with_ci_gen(penguins_df, cleanup_files):
     # Generate data for testing
     np.random.seed(0)
     x = np.linspace(0, 2 * np.pi, 100)
@@ -118,9 +123,9 @@ def test_lowess_with_ci_gen(cleanup_files):
     assert os.path.exists("lowess_gen.png"), "The plot file lowess.png was not created."
 
 
-def test_lowess_with_ci(cleanup_files):
+def test_lowess_with_ci(penguins_df, cleanup_files):
     # Load the penguins dataset
-    penguins = sns.load_dataset("penguins")
+    penguins = penguins_df
 
     # Create the plot
     plot = (
@@ -145,9 +150,9 @@ def test_lowess_with_ci(cleanup_files):
     assert os.path.exists("lowess_b.png"), "The plot file lowess.png was not created."
 
 
-def test_lowess_with_no_ci(cleanup_files):
+def test_lowess_with_no_ci(penguins_df, cleanup_files):
     # Load the penguins dataset
-    penguins = sns.load_dataset("penguins")
+    penguins = penguins_df
 
     # Prepare data
     data = penguins[penguins["species"] == "Adelie"]
@@ -170,9 +175,9 @@ def test_lowess_with_no_ci(cleanup_files):
     assert os.path.exists("lowess_nb.png"), "The plot file lowess.png was not created."
 
 
-def test_polyfit_with_ci(cleanup_files):
+def test_polyfit_with_ci(penguins_df, cleanup_files):
     # Load the penguins dataset
-    penguins = sns.load_dataset("penguins")
+    penguins = penguins_df
 
     # Prepare data
     data = penguins.copy()

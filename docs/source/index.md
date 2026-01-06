@@ -54,6 +54,7 @@ when interval estimation is enabled.
   intervals, and `alpha` controls the tail probability used to define
   the bounds (smaller `alpha` → wider intervals).
 
+  > [!IMPORTANT]
   > The class also enforces a minimum feasible `frac` based on the number of distinct
   `x` values to avoid underdetermined fits.
 
@@ -68,6 +69,7 @@ grid, returning `x`, `y`, `ymin`, and `ymax`.
 - `order` controls the polynomial degree, `gridsize` the resolution of the curve.
 - `alpha` again controls the tail probability used for the band.
 
+  > [!TIP]
   > Designed to pair naturally with `so.Line()` and `so.Band()` for “fit + band”
   style visualizations.
 
@@ -81,6 +83,7 @@ A `Move` that applies a pandas rolling window operation along one axis of the pl
   (e.g. Gaussian), and `window_kwargs` (like `{"std": 2}`) configure them.
 - `agg` chooses the aggregation (e.g. `"mean"`).
 
+  > [!TIP]
   > This is useful for smoothing trajectories or time series while keeping the
   original `seaborn.objects` structure (e.g. `Agg` + `Lines`) intact.
 
@@ -96,6 +99,7 @@ relying only on a legend.
 - Internally works in screen coordinates and solves a small constrained
   optimization problem to separate labels, then maps them back into data space.
 
+  > [!TIP]
   > Intended for multi-line plots where direct labeling improves readability.
 
 ### Reference lines
@@ -109,6 +113,7 @@ A `Mark` that draws simple horizontal or vertical reference lines using
 - Inherits color and style from the usual `Mappable` properties
   (`color`, `linewidth`, `linestyle`, `alpha`).
 
+  > [!TIP]
   > Useful for adding thresholds, baselines, or other reference levels directly
   within the `seaborn.objects` grammar.
 
@@ -143,6 +148,7 @@ To ensure bootstrap bounds are generated when users adjust alpha without explici
       self.num_bootstrap = 200
 ```
 
+> [!IMPORTANT]
 > This preserves accurate CI generation while avoiding silent failures for common configuration mismatches. If your workflow needs tighter skepticism, consider increasing `num_bootstrap` (e.g., 1000–5000) when dataset size allows, or validating unique(x) counts before smoothing for faster feedback loops.
 
 ## Test coverage expectations

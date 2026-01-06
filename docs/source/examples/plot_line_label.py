@@ -15,11 +15,9 @@ df = pd.DataFrame({
     "series": np.repeat(["A", "B", "C"], t.size),
 })
 
-roll = sor.Rolling(window_type="gaussian", window_kwargs={"std": 2})
-
 (
     so.Plot(df, x="t", y="y", color="series", text="series")
-    .add(so.Lines(), so.Agg(), roll)
+    .add(so.Lines(), so.Agg(), roll := sor.Rolling(window_type="gaussian", window_kwargs={"std": 2}))
     .add(sor.LineLabel(offset=6), so.Agg(), roll)
     .label(title="Rolling smoothed lines with endpoint labels", x="t", y="y")
     .plot()

@@ -45,6 +45,8 @@ class LineLabel(so.Mark):
     -------
     _compute_target_positions(data, scales, other, *, offset=0)
         Solves a constrained optimization problem to determine the optimal target point positions for labels.
+    _as_scalar(value)
+        Convert array-like positions (e.g., 1-element numpy arrays) into Python floats for Matplotlib.
     _plot(split_gen, scales, orient)
         Adds text labels to the plot at computed positions.
     """
@@ -119,14 +121,35 @@ class LineLabel(so.Mark):
 
         return target_positions
 
+    def _as_scalar(self, value: Any) -> float:
+        """Convert array-like values (including 1-element arrays) to a float."""
+        arr = np.asarray(value)
+
+        # Already scalar
+        if arr.ndim == 0:
+            return float(arr)
+
+        # Flatten array-like; pick last finite if numeric
+        arr = arr.ravel()
+        if arr.size == 0:
+            return np.nan
+
+        if np.issubdtype(arr.dtype, np.number):
+            m = np.isfinite(arr)
+            if m.any():
+                return float(arr[m][-1])
+
+        # Fallback: last element
+        return float(arr[-1])
+
     def _plot(self, split_gen, scales, orient):
         data_by_axes: dict[mpl.axes.Axes, list[Mapping[str, Any]]] = (
             collections.defaultdict(list)
-        )  # pyright: ignore
+        )
 
         other = {"x": "y", "y": "x"}[orient]
         for keys, data, ax in split_gen():
-            records = data.query(f"`{orient}` == {orient}.max()").to_dict("records")
+            records = data.sort_values(orient).tail(1).to_dict("records")
             records = collections.ChainMap(*records, {"_keys": keys})
             data_by_axes[ax].append(records)
 
@@ -151,10 +174,12 @@ class LineLabel(so.Mark):
                 )
 
                 target_position = target_positions[ax][idx]
+                x = self._as_scalar(target_position["x"])
+                y = self._as_scalar(target_position["y"])
                 ax.add_artist(
                     mpl.text.Text(  # pyright: ignore
-                        x=target_position["x"],
-                        y=target_position["y"],
+                        x=x,
+                        y=y,
                         text=str(row.get("text", vals["text"])),
                         color=color,
                         fontsize=fontsize,
