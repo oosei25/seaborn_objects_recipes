@@ -11,6 +11,7 @@ author = "Ofosu Osei"
 copyright = f"{datetime.now():%Y}, {author}"
 extensions = [
     "myst_parser",
+    "click_extra.sphinx",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.napoleon",
@@ -76,7 +77,7 @@ sphinx_gallery_conf = {
 }
 
 # MyST
-myst_enable_extensions = ["colon_fence", "deflist", "linkify"]
+myst_enable_extensions = ["colon_fence", "deflist", "linkify", "colon_fence"]
 
 # Misc
 exclude_patterns = [
