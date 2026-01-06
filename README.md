@@ -14,6 +14,7 @@ seaborn_objects_recipes is a Python package that extends the functionality of th
 - [Lowess](https://github.com/Ofosu-Osei/seaborn_objects_recipes/blob/main/seaborn_objects_recipes/recipes/lowess.py)
 - [PolyFitWithCI](https://github.com/Ofosu-Osei/seaborn_objects_recipes/blob/main/seaborn_objects_recipes/recipes/plotting.py)
 
+> [!TIP]
 > For the full gallery and API, see the docs: [API-Gallery Docs](https://oosei25.github.io/seaborn_objects_recipes/)
 
 ## 📊 Combined Example: Rolling + LOWESS + Direct Line Labels
@@ -92,6 +93,7 @@ For questions or feedback regarding `seaborn_objects_recipes`, please contact [O
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+> [!IMPORTANT]
 > Quick Checklist:
 
 - ✅ Distinct x-value count valid for LOWESS (frac ≥ 2/n)
