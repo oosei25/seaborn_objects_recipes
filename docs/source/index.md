@@ -56,7 +56,7 @@ when interval estimation is enabled.
 
   > [!IMPORTANT]
   > The class also enforces a minimum feasible `frac` based on the number of distinct
-  `x` values to avoid underdetermined fits.
+  > `x` values to avoid underdetermined fits.
 
 ### Polynomial fit with intervals
 
@@ -71,7 +71,7 @@ grid, returning `x`, `y`, `ymin`, and `ymax`.
 
   > [!TIP]
   > Designed to pair naturally with `so.Line()` and `so.Band()` for “fit + band”
-  style visualizations.
+  > style visualizations.
 
 ### Rolling smoother
 
@@ -85,7 +85,7 @@ A `Move` that applies a pandas rolling window operation along one axis of the pl
 
   > [!TIP]
   > This is useful for smoothing trajectories or time series while keeping the
-  original `seaborn.objects` structure (e.g. `Agg` + `Lines`) intact.
+  > original `seaborn.objects` structure (e.g. `Agg` + `Lines`) intact.
 
 ### Direct line labels
 
@@ -115,7 +115,7 @@ A `Mark` that draws simple horizontal or vertical reference lines using
 
   > [!TIP]
   > Useful for adding thresholds, baselines, or other reference levels directly
-  within the `seaborn.objects` grammar.
+  > within the `seaborn.objects` grammar.
 
 ## Usage Notes & Correctness Guarantees
 
