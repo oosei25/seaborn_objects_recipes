@@ -1,5 +1,5 @@
-seaborn>=0.13,<0.14
-statsmodels>=0.14.1,<0.15
-matplotlib>=3.7,<3.9
+seaborn>=0.13
+statsmodels>=0.14.1
+matplotlib>=3.7
 pandas>=1.5,<3
 scipy>=1.9,<2

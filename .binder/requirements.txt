@@ -1,7 +1,6 @@
-scipy
-matplotlib
-pandas
-numpy
-seaborn
-statsmodels
-seaborn_objects_recipes
+-e .
+seaborn>=0.13
+statsmodels>=0.14.1
+matplotlib>=3.7
+pandas>=1.5
+scipy>=1.9,<2

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seaborn_objects_recipes"
-version = "0.2.1.0"
+version = "0.2.1.1"
 packages = [{ include = "seaborn_objects_recipes" }]
 description = "A collection of recipes that can be used together with the seaborn library to create custom plots."
 authors = ["Ofosu Osei <goofosuosei@gmail.com>"]
@@ -30,16 +30,17 @@ profile = "black"
 skip = ["dist", "build", "docs", "img", ".venv"]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.10,<3.13"
 seaborn = ">=0.13"
-statsmodels = ">=0.14"
+statsmodels = ">=0.14.1"
 pandas = ">=1.5"
 numpy = ">=1.22"
-matplotlib = ">=3.6"
-scipy = ">=1.9"
+matplotlib = ">=3.7"
+scipy = ">=1.9,<2"
 
-[tool.poetry.dev-dependencies]
-pytest = "^5.2"
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.0,<9"
+pre-commit = "^4.5.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
