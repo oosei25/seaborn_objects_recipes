@@ -30,7 +30,7 @@ profile = "black"
 skip = ["dist", "build", "docs", "img", ".venv"]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
+python = ">=3.10"
 seaborn = ">=0.13"
 statsmodels = ">=0.14.1"
 pandas = ">=1.5"
