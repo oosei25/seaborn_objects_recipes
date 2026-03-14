@@ -1,9 +1,12 @@
 # Seaborn Objects Recipes
 
 [![PyPI](https://img.shields.io/pypi/v/seaborn_objects_recipes.svg)](https://pypi.org/project/seaborn_objects_recipes/)
-![Python versions](https://img.shields.io/pypi/pyversions/seaborn_objects_recipes.svg)
-[![CI](https://github.com/oosei25/seaborn_objects_recipes/actions/workflows/actions.yml/badge.svg)](https://github.com/oosei25/seaborn_objects_recipes/actions)
-[![Docs](https://img.shields.io/badge/docs-stable-blue)](https://oosei25.github.io/seaborn_objects_recipes/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/seaborn_objects_recipes.svg)](https://pypi.org/project/seaborn_objects_recipes/)
+[![License](https://img.shields.io/github/license/oosei25/seaborn_objects_recipes.svg)](https://github.com/oosei25/seaborn_objects_recipes/blob/main/LICENSE)
+[![CI](https://github.com/oosei25/seaborn_objects_recipes/actions/workflows/actions.yml/badge.svg)](https://github.com/oosei25/seaborn_objects_recipes/actions/workflows/actions.yml)
+[![Docs](https://img.shields.io/badge/docs-stable-blue.svg)](https://oosei25.github.io/seaborn_objects_recipes/)
+[![Code style: Ruff](https://img.shields.io/badge/lint-ruff-46a2f1.svg)](https://docs.astral.sh/ruff/)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 ## 📘 About
 
@@ -68,7 +71,7 @@ This pattern is useful when you want:
     )
 ```
 
-![example_plot](img/example.png)
+![example_plot](https://github.com/oosei25/seaborn_objects_recipes/blob/main/img/example.png)
 
 ## ⚙️ Installation
 
