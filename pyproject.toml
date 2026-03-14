@@ -1,9 +1,11 @@
 [tool.poetry]
 name = "seaborn_objects_recipes"
-version = "0.2.1.1"
+version = "0.2.3"
 packages = [{ include = "seaborn_objects_recipes" }]
 description = "A collection of recipes that can be used together with the seaborn library to create custom plots."
-authors = ["Ofosu Osei <goofosuosei@gmail.com>"]
+authors = ["Ofosu Osei <goofosuosei@gmail.com>",
+          "Nick Eubank <nick@nickeubank.com>"
+]
 license = "MIT"
 readme = "README.md"
 homepage = "https://oosei25.github.io/seaborn_objects_recipes/index.html"
