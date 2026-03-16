@@ -71,7 +71,7 @@ This pattern is useful when you want:
     )
 ```
 
-![example_plot](https://github.com/oosei25/seaborn_objects_recipes/blob/main/img/example.png)
+![example_plot](https://raw.githubusercontent.com/oosei25/seaborn_objects_recipes/refs/heads/main/img/example.png)
 
 ## ⚙️ Installation
 
